@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wedding Invitation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Poppins, sans-serif;background:#faf7f5;color:#333;scroll-behavior:smooth}
+
+/* envelope overlay */
+#opening{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#e8d6c3;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+z-index:9999;
+text-align:center;
+}
+
+#opening h1{font-family:'Playfair Display';margin:10px;font-size:38px}
+#opening button{
+padding:12px 25px;
+border:none;
+background:#a77c5a;
+color:white;
+border-radius:25px;
+cursor:pointer;
+margin-top:20px;
+}
+
+section{padding:80px 20px;text-align:center}
+.container{max-width:900px;margin:auto}
+
+h1,h2,h3{font-family:'Playfair Display'}
+
+.cover{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:linear-gradient(120deg,#c6a27f,#e9d7c5);
+color:white;
+text-align:center;
+}
+
+.cover h1{font-size:44px;margin:10px}
+
+.btn{
+display:inline-block;
+padding:12px 28px;
+background:white;
+color:#a77c5a;
+border-radius:30px;
+text-decoration:none;
+margin-top:20px;
+font-weight:bold
+}
+
+.card{
+background:white;
+padding:35px;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+margin-top:25px;
+}
+
+.names{font-size:34px;color:#a77c5a;margin:10px}
+
+.countdown{font-size:20px;margin-top:10px}
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+margin-top:25px
+}
+
+.gallery img{
+width:100%;
+border-radius:10px;
+cursor:pointer
+}
+
+.timeline div{margin:15px 0}
+
+input,textarea{
+width:100%;
+padding:10px;
+margin:8px 0;
+border-radius:8px;
+border:1px solid #ddd
+}
+
+button.submit{
+padding:10px 20px;
+border:none;
+background:#a77c5a;
+color:white;
+border-radius:20px;
+cursor:pointer
+}
+
+#wishesList{
+margin-top:20px;
+text-align:left
+}
+
+#wishesList div{
+background:#fff;
+padding:10px;
+margin:8px 0;
+border-radius:8px;
+box-shadow:0 3px 8px rgba(0,0,0,0.05)
+}
+
+/* gallery modal */
+#modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+justify-content:center;
+align-items:center;
+}
+
+#modal img{
+max-width:90%;
+max-height:90%;
+border-radius:10px
+}
+
+/* music button */
+#musicBtn{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#a77c5a;
+color:white;
+border:none;
+padding:12px;
+border-radius:50%;
+cursor:pointer;
+}
+
+/* falling flowers */
+.flower{
+position:fixed;
+top:-50px;
+font-size:20px;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+to{transform:translateY(110vh)}
+}
+
+footer{padding:40px;color:#777;font-size:14px}
+</style>
+</head>
+
+<body>
+
+<!-- OPENING ENVELOPE -->
+<div id="opening">
+<h3>The Wedding Of</h3>
+<h1>FULAN & FULANAH</h1>
+<p>Kepada Yth.</p>
+<h3 id="guestName">Tamu Undangan</h3>
+<button onclick="openInvite()">Buka Undangan</button>
+</div>
+
+<!-- COVER -->
+<section class="cover">
+<h1>FULAN & FULANAH</h1>
+<p>Sabtu, 12 Desember 2026</p>
+<a href="#home" class="btn">Lihat Undangan</a>
+</section>
+
+<!-- QUOTE -->
+<section id="home">
+<div class="container">
+<p>"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan pasangan..."</p>
+<p><b>QS Ar-Rum : 21</b></p>
+</div>
+</section>
+
+<!-- MEMPELAI -->
+<section>
+<div class="container">
+<h2>Mempelai</h2>
+
+<div class="card">
+<div class="names">FULAN</div>
+<p>Putra dari Bapak ... & Ibu ...</p>
+
+<br>
+
+<div class="names">FULANAH</div>
+<p>Putri dari Bapak ... & Ibu ...</p>
+</div>
+
+</div>
+</section>
+
+<!-- COUNTDOWN -->
+<section>
+<div class="container">
+<h2>Menuju Hari Bahagia</h2>
+<div class="countdown" id="countdown"></div>
+</div>
+</section>
+
+<!-- EVENT -->
+<section>
+<div class="container">
+<h2>Detail Acara</h2>
+
+<div class="card">
+
+<h3>Akad Nikah</h3>
+<p>Sabtu, 12 Desember 2026</p>
+<p>09.00 WIB</p>
+
+<br>
+
+<h3>Resepsi</h3>
+<p>11.00 WIB</p>
+
+<br>
+
+<iframe
+src="https://maps.google.com/maps?q=-6.2,106.8&z=15&output=embed"
+width="100%"
+height="250"
+style="border:0;border-radius:10px">
+</iframe>
+
+</div>
+
+</div>
+</section>
+
+<!-- GALLERY -->
+<section>
+<div class="container">
+<h2>Galeri</h2>
+
+<div class="gallery">
+<img src="Foto1.jpeg">
+<img src="Foto2.jpeg">
+<img src="Foto3.jpeg">
+</div>
+
+</div>
+</section>
+
+<!-- LOVE STORY -->
+<section>
+<div class="container">
+<h2>Love Story</h2>
+
+<div class="timeline">
+<div><h3>Pertemuan</h3><p>2018</p></div>
+<div><h3>Lamaran</h3><p>2024</p></div>
+<div><h3>Pernikahan</h3><p>2026</p></div>
+</div>
+
+</div>
+</section>
+
+<!-- RSVP -->
+<section>
+<div class="container">
+<h2>RSVP</h2>
+
+<div class="card">
+
+<input id="rsvpName" placeholder="Nama">
+<select id="rsvpStatus">
+<option>Hadir</option>
+<option>Tidak Hadir</option>
+</select>
+
+<button class="submit" onclick="saveRSVP()">Kirim</button>
+
+</div>
+
+</div>
+</section>
+
+<!-- WISHES -->
+<section>
+<div class="container">
+<h2>Ucapan & Doa</h2>
+
+<div class="card">
+
+<input id="wishName" placeholder="Nama">
+<textarea id="wishText" rows="4" placeholder="Tulis ucapan"></textarea>
+
+<button class="submit" onclick="addWish()">Kirim</button>
+
+<div id="wishesList"></div>
+
+</div>
+
+</div>
+</section>
+
+<footer>
+Terima kasih atas doa dan restunya
+</footer>
+
+<!-- gallery modal -->
+<div id="modal" onclick="closeModal()">
+<img id="modalImg">
+</div>
+
+<button id="musicBtn" onclick="toggleMusic()">♫</button>
+
+<audio id="music" loop>
+<source src="Love_Story.mp3">
+</audio>
+
+<script>
+
+/* guest name from URL */
+const urlParams=new URLSearchParams(window.location.search)
+const guest=urlParams.get("to")
+if(guest){
+document.getElementById("guestName").innerText=guest.replace(/\+/g," ")
+}
+
+/* open invitation */
+function openInvite(){
+document.getElementById("opening").style.display="none"
+document.getElementById("music").play()
+}
+
+/* countdown */
+var weddingDate=new Date("Dec 12, 2026 09:00:00").getTime()
+setInterval(function(){
+var now=new Date().getTime()
+var dist=weddingDate-now
+var d=Math.floor(dist/(1000*60*60*24))
+var h=Math.floor((dist%(1000*60*60*24))/(1000*60*60))
+var m=Math.floor((dist%(1000*60*60))/(1000*60))
+document.getElementById("countdown").innerHTML=d+" Hari "+h+" Jam "+m+" Menit"
+},1000)
+
+/* music toggle */
+function toggleMusic(){
+let music=document.getElementById("music")
+if(music.paused) music.play()
+else music.pause()
+}
+
+/* gallery modal */
+document.querySelectorAll(".gallery img").forEach(img=>{
+img.onclick=()=>{document.getElementById("modal").style.display="flex";document.getElementById("modalImg").src=img.src}
+})
+
+function closeModal(){
+document.getElementById("modal").style.display="none"
+}
+
+/* wishes */
+function addWish(){
+let name=document.getElementById("wishName").value
+let text=document.getElementById("wishText").value
+let list=document.getElementById("wishesList")
+
+let div=document.createElement("div")
+div.innerHTML="<b>"+name+"</b><br>"+text
+
+list.prepend(div)
+
+}
+
+/* RSVP */
+function saveRSVP(){
+alert("Terima kasih konfirmasi kehadirannya")
+}
+
+/* falling flowers */
+setInterval(()=>{
+let f=document.createElement("div")
+f.className="flower"
+f.innerHTML="🌸"
+f.style.left=Math.random()*100+"vw"
+f.style.animationDuration=(3+Math.random()*5)+"s"
+document.body.appendChild(f)
+setTimeout(()=>f.remove(),8000)
+},500)
+
+</script>
+
+</body>
+</html>
